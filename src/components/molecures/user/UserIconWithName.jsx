@@ -3,9 +3,10 @@ import { useContext } from "react";
 import { UserContext } from "../../../providers/UserProvider";
 
 export const UserIconWithName = (props) => {
-  const { image, name, isAdmin } = props;
-  const context = useContext(UserContext);
-  console.log(context);
+  const { image, name } = props;
+  const { userInfo } = useContext(UserContext);
+  const isAdmin = userInfo ? userInfo.isAdmin : false;
+
   return (
     <SContainer>
       <SImg alt={ name } src={ image } height={160} width={160} />
