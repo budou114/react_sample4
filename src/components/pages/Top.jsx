@@ -5,12 +5,12 @@ import { SecondaryButton } from "../atoms/button/SecondaryButton";
 // import { UserContext } from "../../providers/UserProvider";
 import { useSetRecoilState } from "recoil";
 import { userState } from "../../store/userState";
+import axios from "axios";
 
 export const Top = () => {
   const history = useHistory();
   // const { setUserInfo } = useContext(UserContext);
   const setUserInfo = useSetRecoilState(userState);
-
 
   const onClickAdmin = () => {
     setUserInfo({isAdmin: true})
@@ -20,6 +20,18 @@ export const Top = () => {
     setUserInfo({isAdmin: false})
     history.push("/users");
   }
+
+  const onClickUsers = () => {
+    axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
+      console.log(res.data);
+    }).catch((err) => console.log(err));
+  }
+  const onClickUser1 = () => {
+    axios.get("https://jsonplaceholder.typicode.com/users?id=1").then((res) => {
+      console.log(res.data);
+    }).catch((err) => console.log(err));
+  }
+
   return (
     <SContainer>
       <h2>Topページです。</h2>
@@ -27,6 +39,8 @@ export const Top = () => {
       <br />
       <br />
       <SecondaryButton onClick={onClickGeneral}>一般ユーザー</SecondaryButton>
+      <button onClick={onClickUsers}>users</button>
+      <button onClick={onClickUser1}>id=1のユーザー</button>
     </SContainer>
   );
 };
